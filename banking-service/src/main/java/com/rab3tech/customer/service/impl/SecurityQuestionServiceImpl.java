@@ -18,6 +18,7 @@ import com.rab3tech.dao.entity.CustomerQuestionAnswer;
 import com.rab3tech.dao.entity.Login;
 import com.rab3tech.dao.entity.SecurityQuestions;
 import com.rab3tech.vo.CustomerSecurityQueAnsVO;
+import com.rab3tech.vo.CustomerVO;
 import com.rab3tech.vo.SecurityQuestionsVO;
 
 @Transactional
@@ -80,5 +81,41 @@ public class SecurityQuestionServiceImpl implements SecurityQuestionService {
 			return questionsVO;
 		}).collect(Collectors.toList());*/
 	}
+
+
+	@Override
+	public CustomerSecurityQueAnsVO findQuestionAnswer(String emailId) {
+		List<CustomerQuestionAnswer> customerQuestionAnswer=customerQuestionsAnsRepository.findQuestionAnswer(emailId);
+		CustomerSecurityQueAnsVO qa= new CustomerSecurityQueAnsVO();
+		qa.setSecurityQuestion1(customerQuestionAnswer.get(0).getQuestion());
+		qa.setSecurityQuestion2(customerQuestionAnswer.get(1).getQuestion());
+		qa.setSecurityQuestionAnswer1(customerQuestionAnswer.get(0).getAnswer());
+		qa.setSecurityQuestionAnswer2(customerQuestionAnswer.get(1).getAnswer());
+		return qa;
+	}
 	
-}
+
+
+	@Override
+	public void update(CustomerSecurityQueAnsVO csqaVO) {
+		List<CustomerQuestionAnswer> cqa= customerQuestionsAnsRepository.findQuestionAnswer(csqaVO.getLoginid());
+		String quetionText=questionsRepository.findById(Integer.parseInt(csqaVO.getSecurityQuestion1())).get().getQuestions();
+		CustomerQuestionAnswer qa1=cqa.get(0);
+		qa1.setQuestion(quetionText);
+		qa1.setAnswer(csqaVO.getSecurityQuestionAnswer1());
+		qa1.setDom(new Timestamp(new Date().getTime()));
+		customerQuestionsAnsRepository.save(qa1);
+		
+		CustomerQuestionAnswer qa2=cqa.get(1);
+		quetionText=questionsRepository.findById(Integer.parseInt(csqaVO.getSecurityQuestion2())).get().getQuestions();
+		qa2.setQuestion(quetionText);
+		qa2.setAnswer(csqaVO.getSecurityQuestionAnswer2());
+		qa2.setDom(new Timestamp(new Date().getTime()));
+		customerQuestionsAnsRepository.save(qa2);	
+	}
+		
+		
+		
+	}
+	
+

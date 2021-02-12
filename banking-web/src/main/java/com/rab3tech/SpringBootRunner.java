@@ -16,7 +16,7 @@ public class SpringBootRunner extends SpringBootServletInitializer {
 	    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 	        return builder.sources(SpringBootRunner.class);
 	    }
-
+  
 }
 */
 

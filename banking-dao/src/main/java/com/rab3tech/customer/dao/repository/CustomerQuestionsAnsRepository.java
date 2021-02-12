@@ -17,6 +17,12 @@ public interface CustomerQuestionsAnsRepository extends JpaRepository<CustomerQu
     
 	@Query("SELECT c FROM CustomerQuestionAnswer c where c.login.loginid = :ploginid")
 	List<CustomerQuestionAnswer> findQuestionAnswer(@Param("ploginid") String ploginid);
+
+
+
+	
+	
+	
     
 }
 

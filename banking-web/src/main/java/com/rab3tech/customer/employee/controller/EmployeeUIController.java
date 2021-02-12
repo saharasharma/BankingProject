@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.rab3tech.admin.service.CustomerAccountInfoService;
+import com.rab3tech.admin.service.impl.CustomerAccountInfoServiceImpl;
 import com.rab3tech.customer.service.impl.CustomerEnquiryService;
 import com.rab3tech.email.service.EmailService;
 import com.rab3tech.utils.BankHttpUtils;
 import com.rab3tech.vo.CustomerSavingVO;
+import com.rab3tech.vo.CustomerVO;
 import com.rab3tech.vo.EmailVO;
 
 @Controller
@@ -35,6 +38,9 @@ public class EmployeeUIController {
 	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired 
+	private CustomerAccountInfoService customerAccountInfoService;
 	
 	
 	@GetMapping(value= {"/customer/enquiries"})
@@ -59,4 +65,22 @@ public class EmployeeUIController {
 		return "redirect:/customer/enquiries";
 	}
 
+	@GetMapping(value= {"/customer/accountCreate"})
+    @PreAuthorize("hasAuthority('EMPLOYEE')")
+	public String showCustomers(Model model) {
+		logger.info("create Account is called");
+		List<CustomerVO> customers = customerAccountInfoService.findCustomers();
+		model.addAttribute("customers", customers);
+		return "employee/customerAccount"; //createAccount.html
+	}
+
+	@PostMapping ("/customer/createAccount")
+	public String createAccount(@RequestParam int customerId) {
+		customerAccountInfoService.createAccount(customerId);
+		return"redirect:/customer/accountCreate";
+		
+	}
+	
+	
 }
+

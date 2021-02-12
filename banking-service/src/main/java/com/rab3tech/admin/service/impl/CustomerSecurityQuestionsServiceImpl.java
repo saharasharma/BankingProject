@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.rab3tech.admin.dao.repository.CustomerSecurityQuestionsRepository;
 import com.rab3tech.admin.service.CustomerSecurityQuestionsService;
 import com.rab3tech.dao.entity.SecurityQuestions;
+import com.rab3tech.vo.CustomerSecurityQueAnsVO;
 import com.rab3tech.vo.SecurityQuestionsVO;
 
 @Service
@@ -51,5 +52,7 @@ public class CustomerSecurityQuestionsServiceImpl  implements CustomerSecurityQu
 		SecurityQuestions securityQuestions=new SecurityQuestions (0,question,"yes",loginid,new Timestamp(new Date().getTime()),new Timestamp(new Date().getTime()));
 		customerSecurityQuestionsDao.save(securityQuestions);
 	}
+
+	
 
 }

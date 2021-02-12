@@ -11,6 +11,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   
   <style>
+ 
 .ffooter {
   position: fixed;
   left: 0;
@@ -29,9 +30,35 @@
   Hello Mr. <span th:utext="${session.userSessionVO.username}" th:unless="${session == null}" style="font-weight: bold;"></span>
    
 </header>
+<br>
+
+
+		
 <div class="container">
+<a th:href="@{/customer/logout}"> 
+<button type="button" class="btn btn-warning">Logout</button>
+
+<a th:href="@{/customer/myProfile}"> 
+<button type="button" class="btn btn-warning">My Profile</button>
+
+<a th:href="@{/customer/payeeManagement}"> 
+<button type="button" class="btn btn-warning">Manage Payee</button>
+
+<a th:href="@{/customer/transfer}"> 
+<button type="button" class="btn btn-warning">Transfer</button>
+
+<a th:href="@{/customer/showStatement}"> 
+<button type="button" class="btn btn-warning">Show Statements</button>
+
+
+</div>
+<br>
+
+</a>
   <h2>Customer Dashboard Page
   </h2>
+  
+  
   <img th:src="@{/images/customer_dashboard.jpg}" alt="page"/>
    <span th:utext="${error}" style="color: red;font-size: 18px;"></span>
   <div style="width: 70%">

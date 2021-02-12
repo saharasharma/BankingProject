@@ -41,6 +41,9 @@
       <select   class="form-control"  th:field="*{securityQuestion1}" id="securityQuestion1">
          <option th:each="questionsVO : ${questionsVOs1}" th:value="${questionsVO.qid}" th:text="${questionsVO.questions}"></option>
       </select>
+      <select   class="form-control"  th:field="*{securityQuestion1}" id="securityQuestion1">
+         <option th:each="questionsVO : ${questionsVOs1}" th:value="${questionsVO.qid}" th:text="${questionsVO.questions}"></option>
+      </select>
       <label for="answer1"><b>Answer:</b></label>
         <input type="text"  class="form-control"   th:field="*{securityQuestionAnswer1}" id="securityQuestionAnswer1">
     </div>

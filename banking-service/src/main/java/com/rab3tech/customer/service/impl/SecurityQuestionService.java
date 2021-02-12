@@ -3,6 +3,7 @@ package com.rab3tech.customer.service.impl;
 import java.util.List;
 
 import com.rab3tech.vo.CustomerSecurityQueAnsVO;
+import com.rab3tech.vo.CustomerVO;
 import com.rab3tech.vo.SecurityQuestionsVO;
 
 public interface SecurityQuestionService {
@@ -10,5 +11,12 @@ public interface SecurityQuestionService {
 	List<SecurityQuestionsVO> findAll();
 
 	void save(CustomerSecurityQueAnsVO customerSecurityQueAnsVO);
+	
+	public void update(CustomerSecurityQueAnsVO customer);
+
+	CustomerSecurityQueAnsVO findQuestionAnswer(String loginid);
+
+	
+
 
 }
