@@ -155,4 +155,49 @@ public class EmailServiceImpl implements EmailService{
 	        return "done";
 	}
 
-}
+
+	@Override
+	public String sendEditPayeeEmail(EmailVO email) {
+		try {
+		    MimeMessage message = javaMailSender.createMimeMessage();
+	        MimeMessageHelper helper = new MimeMessageHelper(message,
+	                MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+	                StandardCharsets.UTF_8.name());
+	       
+	        Context context = new Context();
+	        Map<String,Object> props=new HashMap<>();
+	        props.put("name",email.getName());
+	        props.put("payeeName", email.getName());
+	        props.put("payeeAccount", email.getBody());
+	        props.put("Loaction", "California");
+	        props.put("email", "saharasharma@gmail.com");
+	        context.setVariables(props);
+	        String html = templateEngine.process("edit-payee-email-template", context);
+	       
+	        helper.setTo(email.getTo());
+	        helper.setText(html, true);
+	        helper.setSubject("Regarding Account enquiry to open an account.");
+	        helper.setFrom(email.getFrom());
+	        
+	        
+	        File cfile=new ClassPathResource("images/cb1.png", EmailServiceImpl.class.getClassLoader()).getFile();
+	        byte[] cbytes=Files.readAllBytes(cfile.toPath());
+	        InputStreamSource cimageSource =new ByteArrayResource(cbytes);
+	        helper.addInline("cb", cimageSource, "image/png");
+	        
+	        
+	        File file=new ClassPathResource("images/bank-icon.png", EmailServiceImpl.class.getClassLoader()).getFile();
+	        byte[] bytes=Files.readAllBytes(file.toPath());
+	        InputStreamSource imageSource =new ByteArrayResource(bytes);
+	        helper.addInline("bankIcon", imageSource, "image/png");
+	        
+	        javaMailSender.send(message);
+		 }catch (Exception e) {
+			e.printStackTrace();
+		 }   
+	        return "done";
+	}
+		
+	}
+
+
